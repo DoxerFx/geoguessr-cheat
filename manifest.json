@@ -1,0 +1,16 @@
+{
+  "name": "GeoGuessr Cheat Coord",
+  "version": "1.0",
+  "description": "Extension qui permet d'avoir les coordonnées d'une position sur GeoGuessr!",
+  "manifest_version": 2,
+  "author": "Romain Antunes",
+  "content_scripts": [
+    {
+      "matches": ["*://*.geoguessr.com/*"],
+      "js": ["jquery-2.0.3.min.js", "background.js"]
+    }
+  ],
+  "permissions": [ "contextMenus", "tabs", "\u003Call_urls>", "storage" ],
+  "short_name": "OxCopier",
+  "version": "0.0.1"
+}
