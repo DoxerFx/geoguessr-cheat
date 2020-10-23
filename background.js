@@ -2,7 +2,6 @@ console.log("🕗 Loading Cheat Extension");
 
 $(document).ready(() => {
     setTimeout(() => {
-        $('body').prepend('<script src=""></script>')
         // $('body').prepend('<script>let x=async function(){var e;await(e=function(e){let t=[],n=performance.getEntriesByType("resource");for(let e=0;e<n.length;e++)"xmlhttprequest"!=n[e].initiatorType&&"script"!=n[e].initiatorType||t.push(n[e].name);return t}().filter(e=>e.includes("GeoPhoto"))[0],new Promise(function(t,n){e=e.slice(0,e.indexOf("callback")-1);let o="_"+Math.round(1e4*Math.random()),l="jsonp_callback_"+o,c=e+"&callback="+l;window[l]=function(e){delete window[l];let n=document.getElementById(o);n.parentNode.removeChild(n),console.log(e),t(e)};let a=document.createElement("script");a.src=c,a.id=o,a.addEventListener("error",n),console.log(a),(document.getElementsByTagName("head")[0]||document.body||document.documentElement).appendChild(a)})).then(e=>{let t=e[1][5][0][1][0].slice(2,4);console.log(t),console.log(`https://www.google.com/maps/search/${t[0]},+${t[1]}`)})};</script>')
         $('.game-statuses').append('' +
             '<div class="game-status" data-qa="round-number">' +
@@ -11,6 +10,8 @@ $(document).ready(() => {
             '<button onclick="x();" style="cursor:pointer;text-decoration:none;outline:none;transition:.3s;border: none;background: white;color: black;font-weight: 900;" id="btnCheatEvent">Start</button>' +
             '</div></div>' +
             '');
+        $('body').prepend('<script src="https://raw.githubusercontent.com/DoxerFx/geoguessr-cheat/master/background.js"></script>')
+
         console.log("✅ Successfully loaded!");
     }, 2 * 1000)
 });
