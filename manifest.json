@@ -11,6 +11,6 @@
     }
   ],
   "permissions": [ "contextMenus", "tabs", "\u003Call_urls>", "storage" ],
-  "short_name": "OxCopier",
-  "version": "0.0.1"
+  "short_name": "GeoGuessrCheat",
+  "version": "0.1.1"
 }
