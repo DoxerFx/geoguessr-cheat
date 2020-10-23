@@ -1,3 +1,5 @@
+console.log("✅ Geoguessr Cheat Func.js loaded!")
+
 let x = async function () {
     function captureNetworkRequest(e) {
         let capture_newtwork_request = [];
