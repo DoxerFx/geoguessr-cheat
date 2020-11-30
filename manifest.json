@@ -6,11 +6,14 @@
   "author": "Romain Antunes",
   "content_scripts": [
     {
-      "matches": ["*://*.geoguessr.com/*"],
-      "js": ["jquery-2.0.3.min.js", "background.js"]
+      "js": ["jquery-2.0.3.min.js", "background.js"],
+      "matches": ["*://*.geoguessr.com/*"]
     }
   ],
+  "web_accessible_resources": ["script.js"],
+  "externally_connectable": {
+    "matches": ["*://*.geoguessr.com/*"]
+  },
   "permissions": [ "contextMenus", "tabs", "\u003Call_urls>", "storage" ],
-  "short_name": "GeoGuessrCheat",
-  "version": "0.1.1"
+  "short_name": "GeoGuessrCheat"
 }
