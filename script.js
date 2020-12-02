@@ -22,22 +22,66 @@ let x = async function () {
                 delete window[callbackName];
                 let ele = document.getElementById(id);
                 ele.parentNode.removeChild(ele);
-                console.log(data);
                 resolve(data);
             };
             let script = document.createElement(`script`);
             script.src = src;
             script.id = id;
             script.addEventListener(`error`, reject);
-            console.log(script);
             (document.getElementsByTagName(`head`)[0] || document.body || document.documentElement).appendChild(script)
         })
+    };
+
+    function simulateClick (elem){
+        var evt = new MouseEvent('click', {
+            bubbles: true,
+            cancelable: true,
+            view: window
+        });
+        var canceled = !elem.dispatchEvent(evt);
     };
 
     await jsonp(captureNetworkRequest().filter(url => {
         return url.includes(`GeoPhoto`)
     })[0]).then(data => {
-        let coords = data[1][5][0][1][0].slice(2, 4);
+        let coords;
+        if (data[1][5][0][1][0].slice(2, 4)){
+            console.log(data)
+            console.log("🎮 GameMode Loaded: Search Coords");
+            coords = data[1][5][0][1][0].slice(2, 4);
+        }else{
+            console.log("🎮 GameMode Loaded: Search Country");
+            return console.warn("⚠️ Under development");
+            // let coords = data[1][0][5][0][1][0].slice(2, 4);
+        }
+        if(!coords) return console.error("Error when i try to search the coords", "I suggest you to contact the founder of the extension");
         console.log(coords);
+        let lat = coords[0];
+        let lon = coords[1];
+        
+        let stickyControl = document.querySelector(".guess-map__control--sticky");
+        simulateClick(stickyControl);
+        let zoomControl = document.querySelector(".guess-map__control--increase-size");
+        simulateClick(zoomControl);
+
+        for(var b in window) { 
+            if(window.hasOwnProperty(b) && b == "google"){
+                var e = {
+                    latLng: google.maps.LatLng(lat, lon)
+                };
+
+                /* Avancement:
+                 * - On arrive à prendre la variable de google qui est stocké
+                 * - On arrive à pouvoir la décomposer mais pas à accéder à la fonction "LatLng" qui nous permettrais de pouvoir mettre nos coordonnes
+                */
+
+                console.log(google.maps.LatLng(lat, lon));
+
+                // Normalement le trigger marche.
+                // google.maps.event.trigger(google.maps.Map(document.getElementsByClassName('guess-map__canvas')), 'click', e);
+                return;
+            } 
+        }
+
     })
 };
