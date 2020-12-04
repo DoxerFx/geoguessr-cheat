@@ -66,5 +66,7 @@ let x = async function () {
 
         window.open(`https://www.google.com/maps/place/${lat}, ${lon}/@${lat}, ${lon},4z`,'_blank');
 
+        // On pourrait bloqué le webpack avec toutes la logique des maps et le remplacer par un modifié.
+
     })
 };

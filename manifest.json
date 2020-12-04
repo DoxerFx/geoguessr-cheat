@@ -1,19 +1,20 @@
 {
-  "name": "GeoGuessr Cheat Coord",
-  "version": "1.0",
-  "description": "Extension qui permet d'avoir les coordonnées d'une position sur GeoGuessr!",
   "manifest_version": 2,
-  "author": "Romain Antunes",
-  "content_scripts": [
-    {
-      "js": ["jquery-2.0.3.min.js", "background.js"],
-      "matches": ["*://*.geoguessr.com/*"]
-    }
-  ],
-  "web_accessible_resources": ["script.js"],
+  "name": "GeoGuessr Cheat",
+  "version": "1.0.0",
+  "description": "GeoGuessr Cheat Who Find the coords from where are you.",
+  "author": "FlashLeLama",
+  "background":{
+    "persistant": "true"
+  },
+  "content_scripts": [{
+    "matches": ["*://*.geoguessr.com/*"],
+    "js": ["background.js", "jquery-2.0.3.min.js"]
+  }],
+  "web_accessible_resources": ["script.js", "0dc1b7672fbaeb5852eeb66548bcf5fb2331ed73.f1b0700822c16a7cf20a_modif.js"],
   "externally_connectable": {
     "matches": ["*://*.geoguessr.com/*"]
   },
-  "permissions": [ "contextMenus", "tabs", "\u003Call_urls>", "storage" ],
+  "permissions": [ "contextMenus", "tabs", "\u003Call_urls>", "storage", "webRequest"],
   "short_name": "GeoGuessrCheat"
 }
