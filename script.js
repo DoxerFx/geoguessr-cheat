@@ -80,6 +80,15 @@ let x = async function () {
         return {x, y}
     }
 
+    function verifyMapSize(){
+        let mapClass = document.querySelector("[data-qa='guess-map']").classList.value;
+        console.log(mapClass.includes("size-4") && mapClass.includes("active"));
+        if(mapClass.includes("size-4") && mapClass.includes("active")){
+            return true;
+        }
+        return false;
+    }
+
     await jsonp(captureNetworkRequest().filter(url => {
         return url.includes(`GeoPhoto`)
     })[0]).then(data => {
@@ -90,27 +99,28 @@ let x = async function () {
             coords = data[1][5][0][1][0].slice(2, 4);
         } else {
             console.log("🎮 GameMode Loaded: Search Country");
-            return console.warn("⚠️ Under development");
-            coords = data[1][0][5][0][1][0].slice(2, 4);
+            return console.warn("⚠️ This gamemode is under development");
+            // coords = data[1][0][5][0][1][0].slice(2, 4);
         }
         if (!coords) return console.error("Error when i try to search the coords", "I suggest you to contact the founder of the extension");
-        console.log(coords);
         let lat = coords[0];
         let lon = coords[1];
 
-        let stickyControl = document.querySelector(".guess-map__control--sticky");
-        simulateClick(stickyControl);
-        let zoomControl = document.querySelector(".guess-map__control--increase-size");
-        simulateClick(zoomControl);
+        if(!verifyMapSize()){
+            let stickyControl = document.querySelector(".guess-map__control--sticky");
+            simulateClick(stickyControl);
+            let zoomControl = document.querySelector(".guess-map__control--increase-size");
+            simulateClick(zoomControl);
+        }
         let guessMap = document.querySelector(".guess-map__canvas");
         setTimeout(()=>{
-            let getCoords = calculateClickZone(getElementCoords(guessMap), getWidthElement(guessMap), getHeightElement(guessMap));
-            click(getCoords.x, getCoords.y)
+            let getMapCoords = calculateClickZone(getElementCoords(guessMap), getWidthElement(guessMap), getHeightElement(guessMap));
+            click(getMapCoords.x, getMapCoords.y)
             window.LatLngFromExtension = {lat, lon}
             setTimeout(()=>{
-                click(getCoords.x, getCoords.y)
-            }, 1000)
-        }, 1000)
+                click(getMapCoords.x, getMapCoords.y)
+            }, 100)
+        }, 750)
     })
 };
 

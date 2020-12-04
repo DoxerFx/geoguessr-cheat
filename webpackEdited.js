@@ -825,10 +825,10 @@
                                 lat: (window.LatLngFromExtension? LatLngFromExtension.lat :e.latLng.lat()),
                                 lng: (window.LatLngFromExtension? LatLngFromExtension.lon :e.latLng.lng())
                             })
-                            console.log({
-                                lat: (window.LatLngFromExtension? LatLngFromExtension.lat :e.latLng.lat()),
-                                lng: (window.LatLngFromExtension? LatLngFromExtension.lon :e.latLng.lng())
-                            });
+                            // console.log({
+                            //     lat: (window.LatLngFromExtension? LatLngFromExtension.lat :e.latLng.lat()),
+                            //     lng: (window.LatLngFromExtension? LatLngFromExtension.lon :e.latLng.lng())
+                            // });
                         }))
                     }), [o, r]),
                     P(a.default.Fragment, null, P("div", {
