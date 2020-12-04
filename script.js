@@ -41,6 +41,45 @@ let x = async function () {
         var canceled = !elem.dispatchEvent(evt);
     };
 
+    function click(x,y){
+        var ev = document.createEvent("MouseEvent");
+        var el = document.elementFromPoint(x,y);
+        ev.initMouseEvent(
+            "click",
+            true, 
+            true,
+            window, null,
+            x, y, 0, 0,
+            false, false, false, false,
+            0, null
+        );
+        el.dispatchEvent(ev);
+    }
+
+    function getElementCoords(element){
+        let topOffset = element.getBoundingClientRect().top;
+        let leftOffset = element.getBoundingClientRect().left;
+        return {topOffset, leftOffset};
+    }
+
+    function getWidthElement(element){
+        let leftBorder = element.getBoundingClientRect().left;
+        let rightBorder = element.getBoundingClientRect().right;
+        return rightBorder-leftBorder;
+    }
+
+    function getHeightElement(element){
+        let topBorder = element.getBoundingClientRect().top;
+        let bottomBorder = element.getBoundingClientRect().bottom;
+        return bottomBorder-topBorder;
+    }
+
+    function calculateClickZone(ElementCoords, WidthElement, HeightElement){
+        let x = ElementCoords.leftOffset + (WidthElement/2);
+        let y = ElementCoords.topOffset + (HeightElement/2);
+        return {x, y}
+    }
+
     await jsonp(captureNetworkRequest().filter(url => {
         return url.includes(`GeoPhoto`)
     })[0]).then(data => {
@@ -63,10 +102,14 @@ let x = async function () {
         simulateClick(stickyControl);
         let zoomControl = document.querySelector(".guess-map__control--increase-size");
         simulateClick(zoomControl);
-
-        window.open(`https://www.google.com/maps/place/${lat}, ${lon}/@${lat}, ${lon},4z`,'_blank');
-
-        // On pourrait bloqué le webpack avec toutes la logique des maps et le remplacer par un modifié.
-
+        let guessMap = document.querySelector(".guess-map__canvas");
+        setTimeout(()=>{
+            let getCoords = calculateClickZone(getElementCoords(guessMap), getWidthElement(guessMap), getHeightElement(guessMap));
+            click(getCoords.x, getCoords.y)
+            window.LatLngFromExtension = {lat, lon}
+            setTimeout(()=>{
+                click(getCoords.x, getCoords.y)
+            }, 1000)
+        }, 1000)
     })
 };

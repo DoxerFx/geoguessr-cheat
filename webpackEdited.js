@@ -31,6 +31,8 @@
                 d = n("mk4Z");
 
             function f(e) {
+                // console.log(e.map);
+                window.map = e.map;
                 var t = e.map,
                     n = e.lat,
                     f = e.lng,
@@ -820,10 +822,13 @@
                 return Object(a.useEffect)((function () {
                         o && o.addListener("click", (function (e) {
                             r({
-                                lat: e.latLng.lat(),
-                                lng: e.latLng.lng()
+                                lat: (window.LatLngFromExtension? LatLngFromExtension.lat :e.latLng.lat()),
+                                lng: (window.LatLngFromExtension? LatLngFromExtension.lon :e.latLng.lng())
                             })
-                            console.log(o.map);
+                            console.log({
+                                lat: (window.LatLngFromExtension? LatLngFromExtension.lat :e.latLng.lat()),
+                                lng: (window.LatLngFromExtension? LatLngFromExtension.lon :e.latLng.lng())
+                            });
                         }))
                     }), [o, r]),
                     P(a.default.Fragment, null, P("div", {
