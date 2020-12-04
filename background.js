@@ -16,13 +16,20 @@ console.log("🛑 Blocking GeoGuessr Anti-Cheat");
         }
     }
 
-    // Ajout UI
-    $('.game-statuses').append('' +
-    '<div class="game-status" data-qa="round-number">' +
-    '<div class="game-status__heading">Start Cheat</div>' +
-    '<div class="game-status__body">' +
-    '<button onclick="x();" style="cursor:pointer;text-decoration:none;outline:none;transition:.3s;border: none;background: white;color: black;font-weight: 900;" id="btnCheatEvent">Start</button>' +
-    '</div></div>');
+    let gameStatuesContainer = document.getElementsByClassName('game-statuses');
+    let id = Math.floor(Math.random() *9*1000*9*1000);
+    
+    let gameStatus = document.createElement("div");
+    gameStatus.id = `GeoGuessrCheat-${id}`;
+    gameStatus.classList.add("game-status");
+    gameStatus.innerHTML += `
+        <div class="game-status__heading">Start Cheat</div>
+        <div class="game-status__body">
+        <button onclick="x();" style="cursor:pointer;text-decoration:none;outline:none;transition:.3s;border: none;background: white;color: black;font-weight: 900;" id="btnCheatEvent">Start</button>
+        </div>
+    `;
+
+    gameStatuesContainer[0].appendChild(gameStatus)
 
     console.log("✅ Successfully loaded!");
 })()
