@@ -9,12 +9,12 @@
     "scripts": ["block.js"]
   },
   "content_scripts": [{
-    "matches": ["*://*.geoguessr.com/*"],
+    "matches": ["*://*.geoguessr.com/game/*"],
     "js": ["background.js"]
   }],
   "web_accessible_resources": ["script.js", "webpackEdited.js"],
   "externally_connectable": {
-    "matches": ["*://*.geoguessr.com/*"]
+    "matches": ["*://*.geoguessr.com/game/*"]
   },
   "permissions": [ "contextMenus", "activeTab", "tabs", "\u003Call_urls>", "storage", "webRequest", "webRequestBlocking", "*://*.geoguessr.com/*"],
   "short_name": "GeoGuessrCheat"

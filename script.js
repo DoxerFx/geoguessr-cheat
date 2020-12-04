@@ -11,7 +11,6 @@ let x = async function () {
         };
         return capture_newtwork_request;
     };
-
     function jsonp(uri) {
         return new Promise(function (resolve, reject) {
             uri = uri.slice(0, (uri.indexOf("callback") - 1));
@@ -31,7 +30,6 @@ let x = async function () {
             (document.getElementsByTagName(`head`)[0] || document.body || document.documentElement).appendChild(script)
         })
     };
-
     function simulateClick(elem) {
         var evt = new MouseEvent('click', {
             bubbles: true,
@@ -40,13 +38,12 @@ let x = async function () {
         });
         var canceled = !elem.dispatchEvent(evt);
     };
-
-    function click(x,y){
+    function click(x, y) {
         var ev = document.createEvent("MouseEvent");
-        var el = document.elementFromPoint(x,y);
+        var el = document.elementFromPoint(x, y);
         ev.initMouseEvent(
             "click",
-            true, 
+            true,
             true,
             window, null,
             x, y, 0, 0,
@@ -55,40 +52,40 @@ let x = async function () {
         );
         el.dispatchEvent(ev);
     }
-
-    function getElementCoords(element){
+    function getElementCoords(element) {
         let topOffset = element.getBoundingClientRect().top;
         let leftOffset = element.getBoundingClientRect().left;
-        return {topOffset, leftOffset};
+        return {
+            topOffset,
+            leftOffset
+        };
     }
-
-    function getWidthElement(element){
+    function getWidthElement(element) {
         let leftBorder = element.getBoundingClientRect().left;
         let rightBorder = element.getBoundingClientRect().right;
-        return rightBorder-leftBorder;
+        return rightBorder - leftBorder;
     }
-
-    function getHeightElement(element){
+    function getHeightElement(element) {
         let topBorder = element.getBoundingClientRect().top;
         let bottomBorder = element.getBoundingClientRect().bottom;
-        return bottomBorder-topBorder;
+        return bottomBorder - topBorder;
     }
-
-    function calculateClickZone(ElementCoords, WidthElement, HeightElement){
-        let x = ElementCoords.leftOffset + (WidthElement/2);
-        let y = ElementCoords.topOffset + (HeightElement/2);
-        return {x, y}
+    function calculateClickZone(ElementCoords, WidthElement, HeightElement) {
+        let x = ElementCoords.leftOffset + (WidthElement / 2);
+        let y = ElementCoords.topOffset + (HeightElement / 2);
+        return {
+            x,
+            y
+        }
     }
-
-    function verifyMapSize(){
+    function verifyMapSize() {
         let mapClass = document.querySelector("[data-qa='guess-map']").classList.value;
         console.log(mapClass.includes("size-4") && mapClass.includes("active"));
-        if(mapClass.includes("size-4") && mapClass.includes("active")){
+        if (mapClass.includes("size-4") && mapClass.includes("active")) {
             return true;
         }
         return false;
     }
-
     await jsonp(captureNetworkRequest().filter(url => {
         return url.includes(`GeoPhoto`)
     })[0]).then(data => {
@@ -105,26 +102,32 @@ let x = async function () {
         if (!coords) return console.error("Error when i try to search the coords", "I suggest you to contact the founder of the extension");
         let lat = coords[0];
         let lon = coords[1];
-
-        if(!verifyMapSize()){
+        if (!verifyMapSize()) {
             let stickyControl = document.querySelector(".guess-map__control--sticky");
             simulateClick(stickyControl);
             let zoomControl = document.querySelector(".guess-map__control--increase-size");
             simulateClick(zoomControl);
         }
         let guessMap = document.querySelector(".guess-map__canvas");
-        setTimeout(()=>{
+        setTimeout(() => {
             let getMapCoords = calculateClickZone(getElementCoords(guessMap), getWidthElement(guessMap), getHeightElement(guessMap));
             click(getMapCoords.x, getMapCoords.y)
-            window.LatLngFromExtension = {lat, lon}
-            setTimeout(()=>{
+            window.LatLngFromExtension = {
+                lat,
+                lon
+            }
+            setTimeout(() => {
                 click(getMapCoords.x, getMapCoords.y)
-            }, 100)
-        }, 750)
+                setTimeout(() => {
+                    document.querySelector("[data-qa='perform-guess']").click();
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 250)
+                }, 100)
+            }, 500)
+        }, (verifyMapSize() ? 100 : 750))
     })
 };
-
-
 /* L'extension marche enfin !!
  *  TODO: 
  * - Faire un système de configuration comprenant:
@@ -133,4 +136,4 @@ let x = async function () {
  *      
  * - Optimisation
  * - Ajout d'automatisme pour rejouer automatiquement
-*/
+ */

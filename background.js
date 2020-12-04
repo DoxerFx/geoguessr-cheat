@@ -2,6 +2,14 @@ console.log("🕗 Loading Cheat Extension");
 console.log("🛑 Blocking GeoGuessr Anti-Cheat");
 
 (async () => {
+    setInterval(() => {
+        let url = window.location.href;
+        let lastUrl = document.referrer;
+        console.log(url, lastUrl);
+        if (url != lastUrl && url.includes("/games")) {
+            window.location.reload();
+        }
+    }, 1000)
     // Injection du JavaScript dans la page Web
     runTimeId = `GeoGuessr-${Math.floor(Math.random()*10*1000)}`;
     let s = document.createElement('script');
@@ -15,7 +23,7 @@ console.log("🛑 Blocking GeoGuessr Anti-Cheat");
     //     }
     // }
     let gameStatuesContainer = document.getElementsByClassName('game-statuses');
-    let id = Math.floor(Math.random() *9*1000*9*1000);
+    let id = Math.floor(Math.random() * 9 * 1000 * 9 * 1000);
     let gameStatus = document.createElement("div");
     gameStatus.id = `GeoGuessrCheat-${id}`;
     gameStatus.classList.add("game-status");
