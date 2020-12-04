@@ -5,16 +5,17 @@
   "description": "GeoGuessr Cheat Who Find the coords from where are you.",
   "author": "FlashLeLama",
   "background":{
-    "persistant": "true"
+    "persistant": "true",
+    "scripts": ["block.js"]
   },
   "content_scripts": [{
     "matches": ["*://*.geoguessr.com/*"],
-    "js": ["background.js", "jquery-2.0.3.min.js"]
+    "js": ["background.js", "jquery.js"]
   }],
-  "web_accessible_resources": ["script.js", "0dc1b7672fbaeb5852eeb66548bcf5fb2331ed73.f1b0700822c16a7cf20a_modif.js"],
+  "web_accessible_resources": ["script.js", "webpackEdited.js"],
   "externally_connectable": {
     "matches": ["*://*.geoguessr.com/*"]
   },
-  "permissions": [ "contextMenus", "tabs", "\u003Call_urls>", "storage", "webRequest"],
+  "permissions": [ "contextMenus", "activeTab", "tabs", "\u003Call_urls>", "storage", "webRequest", "webRequestBlocking", "*://*.geoguessr.com/*"],
   "short_name": "GeoGuessrCheat"
 }
