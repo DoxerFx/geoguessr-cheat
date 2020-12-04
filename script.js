@@ -91,7 +91,7 @@ let x = async function () {
         } else {
             console.log("🎮 GameMode Loaded: Search Country");
             return console.warn("⚠️ Under development");
-            // let coords = data[1][0][5][0][1][0].slice(2, 4);
+            coords = data[1][0][5][0][1][0].slice(2, 4);
         }
         if (!coords) return console.error("Error when i try to search the coords", "I suggest you to contact the founder of the extension");
         console.log(coords);
@@ -113,3 +113,14 @@ let x = async function () {
         }, 1000)
     })
 };
+
+
+/* L'extension marche enfin !!
+ *  TODO: 
+ * - Faire un système de configuration comprenant:
+ *      - Choisir la precision
+ *      - Choisir le temps
+ *      
+ * - Optimisation
+ * - Ajout d'automatisme pour rejouer automatiquement
+*/
